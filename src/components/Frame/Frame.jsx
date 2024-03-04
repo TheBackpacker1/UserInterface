@@ -1,11 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { IconsChanges } from "../../icons/IconsChanges";
 import { IconsDefault11 } from "../../icons/IconsDefault11";
 import { IconsDefault13 } from "../../icons/IconsDefault13";
 import { IconsDefault3 } from "../../icons/IconsDefault3";
 import { IconsDefault5 } from "../../icons/IconsDefault5";
 
-export const Frame = ({ showFrame = true, property1, className, divClassName, text = "Analyze" }) => {
+export const Frame = ({ /*showFrame = true*/ property1, className, divClassName, text = "Analyze" }) => {
   return (
     <div className={`inline-flex items-center gap-[8px] justify-center relative ${className}`}>
       {property1 === "default" && <IconsDefault11 className="!relative !w-[16px] !h-[16px]" />}
@@ -56,4 +58,11 @@ export const Frame = ({ showFrame = true, property1, className, divClassName, te
       )}
     </div>
   );
+};
+
+Frame.propTypes = {
+  property1: PropTypes.oneOf(["default", "variant-2", "variant-3", "variant-4", "variant-5"]).isRequired,
+  className: PropTypes.string.isRequired,
+  divClassName: PropTypes.string,
+  text: PropTypes.string,
 };

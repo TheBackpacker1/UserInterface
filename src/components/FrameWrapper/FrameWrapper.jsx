@@ -1,7 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { IconsDefault } from "../../icons/IconsDefault";
 
-export const FrameWrapper = ({ showFrame = true, className }) => {
+export const FrameWrapper = ({ /*showFrame = true*/ className }) => {
   return (
     <div className={`flex w-[90px] items-center gap-[4px] relative ${className}`}>
       <IconsDefault className="!relative !w-[16px] !h-[16px]" />
@@ -12,4 +14,7 @@ export const FrameWrapper = ({ showFrame = true, className }) => {
       </div>
     </div>
   );
+};
+FrameWrapper.propTypes = {
+  className: PropTypes.string,
 };

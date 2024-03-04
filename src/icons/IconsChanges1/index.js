@@ -1,1 +1,1 @@
-export { IconsChanges } from "./IconsChanges";
+export { IconsChanges1 } from "./IconsChanges1";

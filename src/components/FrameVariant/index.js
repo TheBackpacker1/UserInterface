@@ -1,1 +1,1 @@
-export { FrameWrapper } from "./FrameWrapper";
+export { FrameVariant } from "./FrameVariant";

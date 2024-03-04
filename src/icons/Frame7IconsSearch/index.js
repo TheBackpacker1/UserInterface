@@ -1,1 +1,1 @@
-export { Frame7IconsSearch } from "./Frame7IconsSearch";
+export { Frame7IconsSearch } from "./Frame7IconSearch";
