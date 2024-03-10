@@ -1,1 +1,0 @@
-export { IconsNotification } from "./IconsNotification";

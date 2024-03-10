@@ -1,1 +1,0 @@
-export { FrameVariant } from "./FrameVariant";

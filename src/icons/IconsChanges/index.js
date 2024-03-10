@@ -1,1 +1,0 @@
-export { IconsChanges } from "./IconsChanges";
