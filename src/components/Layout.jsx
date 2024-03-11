@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Menu } from 'primereact/menu';
 import { Toolbar } from 'primereact/toolbar';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import PropTypes from 'prop-types';
+
 import './Layout.css';
 import { Badge } from 'primereact/badge'
 const Layout = ({ children }) => {
@@ -14,9 +15,11 @@ const Layout = ({ children }) => {
     setVisible(false)
   }
   const rightItems = [
-    <div className="p-inputgroup" key="search">
-      <InputText placeholder="Search" />
-      <Button icon="pi pi-search" className="p-button-secondary" />
+    <div className="" key="search">
+      <span className="p-input-icon-left">
+    <i className="pi pi-search" />
+    <InputText placeholder="Search" />
+</span>
     </div>,
     <Button icon="pi pi-bell" className='p-button-secondary' key='notfications'>
       <Badge value='4' severity="danger"></Badge>
@@ -25,41 +28,43 @@ const Layout = ({ children }) => {
   const sidebarItems = [
     {
       label: 'Dashboard',
+      icon: 'pi pi-fw pi-home',
       to: '/dashboard',
       component: Link,
     },
     {
       label: 'Trending Market',
+      icon: 'pi pi-fw pi-chart-line',
       to: '/trending-market',
       component: Link,
     },
     {
       label: 'Analyze',
-      items: [
-        {
+      icon: 'pi pi-few pi-chart-bar' , 
+      to: '/analyze',
+      component: Link,
+    }   ,
+    {
+
           label: ' Historique',
+          icon:'pi pi-few pi-history',
           to: '/history',
-          component: Link,
-        },
-        // ... other Analyze sub-menu items
-      ],
+           component: Link,
+
     },
     {
       label: 'Exchange',
-      items: [
-        {
-          label: 'Bitcoin',
-          icon: 'pi pi-fw pi-bitcoin',
-          command: () => {
-            handleClose();
-          },
+      icon: 'pi pi-fw pi-bitcoin',
+      to: '/exchange',
+      component: Link,
+     
         },
-        // ... other Exchange items
-      ],
-    },
+ 
+   
     {
-      label: 'Setting',
-      to: '/setting',
+      label: 'Settings',
+      icon:"pi pi-cog",
+      to: '/settings',
       component: Link,
     },
     {
@@ -75,11 +80,11 @@ const Layout = ({ children }) => {
       <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between "
         right={rightItems}>
         <div className='p-d-flex p-ai-center'>
-          <h3>Welcome Back Mohamed!</h3>
+          <h3 >Welcome Back Mohamed!</h3>
           <i className='pi pi-user p-ml-3 p-mr-3'></i>
         </div>
       </Toolbar>
-      <Sidebar visible={visible} style={{ width: '250px' }} baseZIndex={1000000}
+      <Sidebar visible={visible} style={{ width: '250px'  }} baseZIndex={1000000}
         onHide={() => setVisible(false)}>
         <Menu model={sidebarItems} />
       </Sidebar>
