@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import './Layout.css';
 import { Badge } from 'primereact/badge'
 const Layout = ({ children }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const handleClose = () => {
     setVisible(false)
   }
