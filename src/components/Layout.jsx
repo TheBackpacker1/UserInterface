@@ -8,7 +8,6 @@ import { Sidebar } from 'primereact/sidebar';
 import PropTypes from 'prop-types';
 
 import './Layout.css';
-import { Badge } from 'primereact/badge'
 const Layout = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const handleClose = () => {
@@ -21,9 +20,14 @@ const Layout = ({ children }) => {
     <InputText placeholder="Search" />
 </span>
     </div>,
-    <Button icon="pi pi-bell" className='p-button-secondary' key='notfications'>
-      <Badge value='4' severity="danger"></Badge>
-    </Button>
+    <Button icon="pi pi-bell" rounded text severity="warning" aria-label="Notification" key='notification' style={{backgroundColor:'',color:'grey'}}/>
+    ,
+
+    <Button icon="pi pi-user" rounded severity="info" aria-label="User" key='user' style={{backgroundColor:'grey'}}/>
+
+
+
+
   ];
   const sidebarItems = [
     {
@@ -35,7 +39,7 @@ const Layout = ({ children }) => {
     {
       label: 'Trending Market',
       icon: 'pi pi-fw pi-chart-line',
-      to: '/trending-market',
+      to: '/trendingMarket',
       component: Link,
     },
     {
@@ -79,7 +83,7 @@ const Layout = ({ children }) => {
     <div className="layout">
       <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between "
         right={rightItems}>
-        <div className='p-d-flex p-ai-center'>
+        <div className='p-d-flex p-ai-center' style={{color:'white'}}>
           <h3 >Welcome Back Mohamed!</h3>
           <i className='pi pi-user p-ml-3 p-mr-3'></i>
         </div>

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import AppRoutes from './AppRoutes'
 import Layout from './components/Layout'
-import 'primereact/resources/themes/arya-blue/theme.css';
-import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/arya-blue/theme.css'
+import 'primeicons/primeicons.css'
 
 
 
