@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
     </div>,
     <Button className='' icon="pi pi-bell" rounded text severity="none" aria-label="Notification" key='notification' style={{ backgroundColor: '', color: 'grey', fontSize: '1rem' }} />,
     <Button icon="pi pi-user" rounded severity="info" aria-label="User" key='user' style={{ backgroundColor: 'grey', border: 'none' }} />,
-    <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{position:'absolute',left:0,top:0,backgroundColor:'grey',border:'none'}} />
+    <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{position:'absolute',left:0,top:'30px',backgroundColor:'grey',border:'none'}} />
   ];
   const sidebarItems = [
     {

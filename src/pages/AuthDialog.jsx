@@ -3,12 +3,12 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import PropTypes from 'prop-types';
-
+import './AuthDialog.css';
 const AuthDialog = ({showDialog, setShowDialog}) => {
   const [isSignUp, setIsSignUp] = useState(false); // state to toggle between sign up and sign in
 
   const renderForm = () => (
-    <div className=''>
+    <div className='auth-dialog'>
       <h3>{isSignUp ? 'Sign Up' : 'Sign In'}</h3>
       {isSignUp && (
         <div className="p-field">
@@ -32,17 +32,17 @@ const AuthDialog = ({showDialog, setShowDialog}) => {
       )}
       { 
       !isSignUp && (
-       <p style={{textDecoration:'none', color:'white'}}><a href="#">Forgot password?</a></p>
+       <p className='forgot-password'><a href="#">Forgot password?</a></p>
 
       )
       
       }
-      <Button label={isSignUp ? 'Sign Up' : 'Sign In'} />
+      <Button label={isSignUp ? 'Sign Up' : 'Sign In'} className='auth-button' />
       {isSignUp ? (
-        <p>If you already have an account, please <a href="#" onClick={() => setIsSignUp(false)}>sign in</a>.</p>
+        <p>If you already have an account, please <a href="#" onClick={() => setIsSignUp(false)}>sign in</a></p>
       ) : (
         // eslint-disable-next-line react/no-unescaped-entities
-        <p>If you don't have an account, please <a href="#" onClick={() => setIsSignUp(true)}>sign up</a>.</p>
+        <p>If you don't have an account, please <a href="#" onClick={() => setIsSignUp(true)}>sign up</a></p>
       )}
     </div>
   );

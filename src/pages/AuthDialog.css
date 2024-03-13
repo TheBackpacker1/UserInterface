@@ -1,0 +1,61 @@
+.auth-dialog {
+    background-color: #1a1a1a;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .auth-dialog h3 {
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .auth-dialog .p-field {
+    margin-bottom: 15px;
+  }
+  
+  .auth-dialog .p-field label {
+    color: #fff;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .auth-dialog .p-field .p-inputtext {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .auth-dialog .p-button {
+    width: 100%;
+    background-color: #4F59B2;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .auth-dialog .p-button:hover {
+    background-color: #5e68c3;
+  }
+  
+  .auth-dialog a {
+    color: #4F59B2;
+    text-decoration: none;
+  }
+  
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .forgot-password a {
+    color: #fff;
+  }
+  
