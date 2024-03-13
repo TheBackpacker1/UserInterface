@@ -2,7 +2,7 @@ import {DataTable} from 'primereact/datatable'
 import {Column} from 'primereact/column'
 import { Link } from 'react-router-dom' 
 
-const Home = () => {
+const TrendingMarket = () => {
 
     const cryptoData = [
         {
@@ -76,4 +76,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default TrendingMarket
