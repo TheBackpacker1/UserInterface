@@ -6,9 +6,11 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import PropTypes from 'prop-types';
+import AuthDialog from '../pages/AuthDialog';
 
 const Layout = ({ children }) => {
   const [visible, setVisible] = useState(false);
+  const [showDialog, setShowDialog] = useState(false); 
   const handleClose = () => {
     setVisible(false)
   }
@@ -78,7 +80,7 @@ const Layout = ({ children }) => {
     },
 
     {
-      label: <Link to='/logIn' style={{color:'white',textDecoration: 'none'}}>LogIn</Link>,
+      label: <Link to='/authDialog' style={{color:'white',textDecoration: 'none'}} onClick={() => setShowDialog(true)}>LogIn</Link>,
       icon: 'pi pi-fw pi-sign-in',
       command: () => {
         handleClose();
@@ -88,6 +90,7 @@ const Layout = ({ children }) => {
   ];
   return (
     <div className="parent-div" >
+      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} />
       <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between "  style={{backgroundColor:'transparent',border:'none',paddingRight:''}}
         right={rightItems}>
         <div className='p-d-flex p-ai-center' style={{ color: 'white' }}>
@@ -108,3 +111,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 };
 export default Layout;
+
