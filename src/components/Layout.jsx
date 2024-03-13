@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
         <InputText placeholder="Search" />
       </span>
     </div>,
-    <Button className='' icon="pi pi-bell" rounded text severity="none" aria-label="Notification" key='notification' style={{ backgroundColor: '', color: 'grey', fontSize: '1rem' }}/>,
+    <Button className='' icon="pi pi-bell" rounded text severity="none" aria-label="Notification" key='notification' style={{ backgroundColor: '', color: 'grey', fontSize: '1rem' }} />,
     <Button icon="pi pi-user" rounded severity="info" aria-label="User" key='user' style={{ backgroundColor: 'grey', border: 'none' }} />,
     <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{position:'absolute',left:0,top:0,backgroundColor:'grey',border:'none'}} />
   ];
@@ -70,12 +70,21 @@ const Layout = ({ children }) => {
       component: Link,
     },
     {
-      label: <Link to='/profile' style={{color:'white',textDecoration: 'none'}}   onClick={()=> setShowDialog(true)}>Profile</Link>,
+      label: <Link to='/profile' style={{color:'white',textDecoration: 'none'}}   >Profile</Link>,
       icon: 'pi pi-fw pi-user',
       command: () => {
         handleClose();
       },
     },
+
+    {
+      label: <Link to='/logIn' style={{color:'white',textDecoration: 'none'}}>LogIn</Link>,
+      icon: 'pi pi-fw pi-sign-in',
+      command: () => {
+        handleClose();
+      },
+    },
+
   ];
   return (
     <div className="parent-div" >
