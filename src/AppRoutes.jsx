@@ -7,6 +7,7 @@ import AuthDialog from './pages/AuthDialog'
 const AppRoutes = () => {
     return (
         <Routes>
+            <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/trendingMarket" element={<TrendingMarket />} />
             <Route path="/profile" element={<Profile/>} />
