@@ -7,7 +7,6 @@ import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import PropTypes from 'prop-types';
 import AuthDialog from '../pages/AuthDialog';
-
 const Layout = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false); 
@@ -90,6 +89,8 @@ const Layout = ({ children }) => {
   ];
   return (
     <div className="parent-div" >
+  
+      <div style={{position:'absolute',left:50,top:0}}> <h1>Investi</h1></div>
       <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} />
       <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between "  style={{backgroundColor:'transparent',border:'none',paddingRight:''}}
         right={rightItems}>

@@ -5,6 +5,31 @@ import { Button } from 'primereact/button';
 import PropTypes from 'prop-types';
 import './AuthDialog.css';
 import axios from 'axios';
+import * as jwtDecode from 'jwt-decode';
+
+
+
+
+const instance=axios.create({
+  baseURL:'http://localhost:8080/api/v1/bot'
+})
+// Add a request interceptor
+instance.interceptors.request.use((config) => {
+  // Get the token from local storage
+  const token = localStorage.getItem('access_token');
+
+  // If the token exists, add it to the request headers
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return config;
+}, (error) => {
+  // If there's an error, reject the promise
+  return Promise.reject(error);
+});
+
+
 const AuthDialog = ({ showDialog, setShowDialog }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('')
@@ -13,6 +38,8 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
   const [completeName, setCompleteName] = useState('');
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
+  // eslint-disable-next-line no-unused-vars
+  const [userData, setUserData] = useState(null);
 
 
   const handleSubmit = async (e) => {
@@ -26,8 +53,8 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
 
     try {
       // Send a POST request to the correct endpoint based on whether the user is signing up or signing in
-      const endpoint = isSignUp ? 'http://localhost:8080/api/v1/bot/users/add' : 'http://localhost:8080/api/v1/bot/users/login';
-      const response = await axios.post(endpoint, {
+      const endpoint =  '/users/add' ;
+      const response = await instance.post(endpoint, {
         username: email,
         password: password,
         completeName: isSignUp ? completeName : undefined, // Only include completeName when signing up
@@ -38,6 +65,9 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
 
     localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('refresh_token', response.data.refresh_token);
+
+     const decodedToken=jwtDecode(response.data.access_token)
+     setUserData(decodedToken);
 
     setStatus(isSignUp ? 'Sign up successful' : 'Sign in successful');
     setError('');
@@ -51,7 +81,11 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
     }
   };
 
-  
+
+
+
+
+
   const renderForm = () => (
     <div className='auth-dialog'>
       <h3>{isSignUp ? 'Sign Up' : 'Sign In'}</h3>
@@ -87,6 +121,7 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
         {isSignUp ? (
           <p>If you already have an account, please <a href="#" onClick={() => setIsSignUp(false)}>sign in</a></p>
         ) : (
+          // eslint-disable-next-line react/no-unescaped-entities
           <p>If you don't have an account, please <a href="#" onClick={() => setIsSignUp(true)}>sign up</a></p>
         )}
       </form> 
