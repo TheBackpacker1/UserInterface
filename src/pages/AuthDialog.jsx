@@ -52,12 +52,24 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
     }
 
     try {
+       // Get the token from local storage
+    const token = localStorage.getItem('access_token');
+      if (!token) {
+      setError('No access token found');
+      return;
+    }
+    
       // Send a POST request to the correct endpoint based on whether the user is signing up or signing in
       const endpoint =  '/users/add' ;
       const response = await instance.post(endpoint, {
         username: email,
         password: password,
         completeName: isSignUp ? completeName : undefined, // Only include completeName when signing up
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+
       });
 
       // If the request was successful, clear the error message and close the dialog
@@ -76,8 +88,11 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
     setError('An error occurred');
   }
     } catch (err) {
-      // If the request failed, display the error message
-      setError(err.message);
+      if (err.response && err.response.status === 403) {
+        setError('Unauthorized access. Please check your credentials.');
+      } else {
+        setError('An error occurred while processing your request.');
+      }
     }
   };
 
