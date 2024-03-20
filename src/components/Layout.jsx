@@ -6,7 +6,8 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import PropTypes from 'prop-types';
-import AuthDialog from '../pages/AuthDialog';
+import LoginDialog from '../pages/LoginDialog';
+
 const Layout = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false); 
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
     </div>,
     <Button className='' icon="pi pi-bell" rounded text severity="none" aria-label="Notification" key='notification' style={{ backgroundColor: '', color: 'grey', fontSize: '1rem' }} />,
     <Button icon="pi pi-user" rounded severity="info" aria-label="User" key='user' style={{ backgroundColor: 'grey', border: 'none' }} />,
-    <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{position:'absolute',left:0,top:'30px',backgroundColor:'grey',border:'none'}} />
+    <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{position:'absolute',left:0,top:'25px',backgroundColor:'grey',border:'none'}} />
   ];
   const sidebarItems = [
     {
@@ -79,7 +80,7 @@ const Layout = ({ children }) => {
     },
 
     {
-      label: <Link to='/authDialog' style={{color:'white',textDecoration: 'none'}} onClick={() => setShowDialog(true)}>LogIn</Link>,
+      label: <Link to='/loginDialog' style={{color:'white',textDecoration: 'none'}} onClick={() => setShowDialog(true)}>LogIn</Link>,
       icon: 'pi pi-fw pi-sign-in',
       command: () => {
         handleClose();
@@ -91,7 +92,7 @@ const Layout = ({ children }) => {
     <div className="parent-div" >
   
       <div style={{position:'absolute',left:50,top:0}}> <h1>Investi</h1></div>
-      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} />
+      <LoginDialog showDialog={showDialog} setShowDialog={setShowDialog} />
       <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between "  style={{backgroundColor:'transparent',border:'none',paddingRight:''}}
         right={rightItems}>
         <div className='p-d-flex p-ai-center' style={{ color: 'white' }}>
