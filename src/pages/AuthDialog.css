@@ -64,3 +64,12 @@
 cursor: pointer;
 
   }
+  .status-message {
+    color: green;
+    padding: 10px 20px;
+  }
+  
+  .error-message {
+    color: red;
+    padding: 10px 20px;
+  }

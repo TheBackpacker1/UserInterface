@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import PropTypes from 'prop-types';
+import {Message} from 'primereact/message'
 import './AuthDialog.css';
 import axios from 'axios';
-import * as jwtDecode from 'jwt-decode';
 
 
 const instance=axios.create({
-  baseURL:'http://localhost:8080/api/v1/bot'
+  baseURL:'http://localhost:8080/api/v1/bot',
+  headers: { 'Content-Type': 'application/json' } // Add Content-Type header
+
 })
 
 
@@ -22,14 +24,15 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
   const [completeName, setCompleteName] = useState('');
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
+  const [token, setToken] = useState(''); // State variable for token
+
   // eslint-disable-next-line no-unused-vars
-  const [userData, setUserData] = useState(null);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-   
+  
     // Check if passwords match when signing up
     if (isSignUp && password !== confirmPassword) {
       setError('Passwords do not match');
@@ -41,36 +44,84 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
         // No token retrieval needed for signup (assuming server allows it)
 
         const endpoint = '/users/add'; // Replace with your signup endpoint
-        const response = await instance.post(endpoint, {
+
+        const userData={
           username: email,
           password: password,
-          completeName: isSignUp ? completeName : undefined, // Only include completeName when signing up
-        });
+          completeName: completeName,
+          status: "Active",
+          rolePayloads: [
+            {
+              roleId: 2, // Assuming role ID is statically set
+              name: "user",
+            }
+          ]
+        }
+        
+        
+        const response = await instance.post(endpoint, JSON.stringify(userData));
 
-        if (response.status === 201) { // Assuming 201 for successful creation
-          localStorage.setItem('access_token', response.data.access_token);
-          localStorage.setItem('refresh_token', response.data.refresh_token);
 
-          const decodedToken = jwtDecode(response.data.access_token);
-          setUserData(decodedToken);
-
+        if (response.status === 200) { // Assuming 200 for successful creation
           setStatus('Sign up successful');
           setError('');
-          setShowDialog(false);
-        } else if (response.status === 406) { // Handle potential server-side error 
-          setError('User could not be created. Please check details and try again.');
-        } else {
-          setError('An unexpected error occurred.');
+        }else {
+          if (response.data) {
+            const errorData = await response.json();
+            setError(errorData.message || 'User could not be created. Please check details and try again.');
+          } else {
+            setError('An unexpected error occurred. Please try again.');
+          }
+
         }
       } else {
-        // Handle login logic here (assuming separate logic for login)
+
+
+        const tokenEndpoint = 'http://localhost:8080/api/v1/bot/token'; // Use the provided token endpoint
+        const loginData = {
+          username: email,
+          password: password,
+        };
+        const tokenResponse = await axios.post(tokenEndpoint, JSON.stringify(loginData));
+
+        if (tokenResponse.status === 200) { // Assuming 200 for successful token retrieval
+          const token = tokenResponse.data.token; // Replace with your token extraction logic
+          setToken(token);
+
+          // Set the Authorization header with the retrieved token for subsequent requests
+          instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+          setStatus('Login successful!');
+          setError('');
+          setShowDialog(false); // Close dialog after successful login
+        } else {
+          // Check if the response is JSON-compatible before parsing
+          if (tokenResponse.data) {
+            const errorData = await tokenResponse.data;
+            setError(errorData.message || 'Invalid credentials. Please try again.');
+          } else {
+            setError('An unexpected error occurred. Please try again.');
+          }
+        }
+
       }
     } catch (error) {
-      console.error('Error during signup:', error);
       setError(error.message || 'An error occurred while processing your request.');
     }
+    finally {
+      // Clear messages after 4 seconds
+      setTimeout(() => {
+        setStatus('');
+        setError('');
+      }, 4000);
+    }
   };
-
+  useEffect(() => {
+    if (!showDialog || (status && error)) { // Clear on close or both messages set
+      setStatus('');
+      setError('');
+    }
+  }, [showDialog, status, error]);
 
 
 
@@ -98,8 +149,8 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
             <InputText id="confirmPassword" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /> {/* Bind value and onChange */}
           </div>
         )}
-        {error && <p className="error">{error}</p>}
-        {status && <p className="status">{status}</p>}
+        {status && <Message severity="success" text={status} className="status-message" />}
+        {error && <Message severity="error" text={error} className="error-message" />}
         {
           !isSignUp && (
             <p className='forgot-password'><a href="#">Forgot password?</a></p>
