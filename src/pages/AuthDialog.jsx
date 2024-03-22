@@ -26,7 +26,36 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
   const [error, setError] = useState('')
   const [token, setToken] = useState(''); // State variable for token
 
-  // eslint-disable-next-line no-unused-vars
+
+  const storeToken = (token) => {
+    try {
+      localStorage.setItem('auth_token', token);
+    } catch (error) {
+      console.error('Error storing token in local storage:', error);
+      // Handle storage errors gracefully
+    }
+  };
+  
+  const retrieveToken = () => {
+    try {
+      const storedToken = localStorage.getItem('auth_token');
+      if (storedToken) {
+        setToken(storedToken);
+      }
+    } catch (error) {
+      console.error('Error retrieving token from local storage:', error);
+    }
+  };
+
+  useEffect(() => {
+    retrieveToken();
+
+
+    if (!showDialog || (status && error)) { // Clear on close or both messages set
+      setStatus('');
+      setError('');
+    }
+  }, [showDialog, status, error]);
 
 
   const handleSubmit = async (e) => {
@@ -41,8 +70,7 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
 
     try {
       if (isSignUp) {
-        // No token retrieval needed for signup (assuming server allows it)
-
+   // Signup logic
         const endpoint = '/users/add'; // Replace with your signup endpoint
 
         const userData={
@@ -60,7 +88,7 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
         
         
         const response = await instance.post(endpoint, JSON.stringify(userData));
-
+          storeToken
 
         if (response.status === 200) { // Assuming 200 for successful creation
           setStatus('Sign up successful');
@@ -75,37 +103,51 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
 
         }
       } else {
+        // Login logic
+
+     
+        const formData = new FormData();
+    formData.append('username', email);
+    formData.append('password', password);
 
 
-        const tokenEndpoint = 'http://localhost:8080/api/v1/bot/token'; // Use the provided token endpoint
-        const loginData = {
-          username: email,
-          password: password,
-        };
-        const tokenResponse = await axios.post(tokenEndpoint, JSON.stringify(loginData));
 
-        if (tokenResponse.status === 200) { // Assuming 200 for successful token retrieval
-          const token = tokenResponse.data.token; // Replace with your token extraction logic
-          setToken(token);
+        const endpoint = 'http://localhost:8080/api/v1/bot/token'; // Use the provided token endpoint
 
-          // Set the Authorization header with the retrieved token for subsequent requests
-          instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const response = await axios.post(endpoint,formData);
 
-          setStatus('Login successful!');
-          setError('');
-          setShowDialog(false); // Close dialog after successful login
-        } else {
-          // Check if the response is JSON-compatible before parsing
-          if (tokenResponse.data) {
-            const errorData = await tokenResponse.data;
-            setError(errorData.message || 'Invalid credentials. Please try again.');
-          } else {
-            setError('An unexpected error occurred. Please try again.');
-          }
-        }
+        
+    if (response.status === 200) { // Assuming 200 for successful login
+      if (response.data && response.data.access_token && response.data.refresh_token) { // Check for token in response data
+        const accessToken = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+        setToken(accessToken );
+        storeToken(accessToken )  
+
+           setToken(refreshToken );
+        storeToken(refreshToken ) 
+        //console.log(accessToken)
+
+        instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken }`;
+        setStatus('Login successful!');
+        setError('');
+       // setShowDialog(false); // Close dialog after successful login
+      } else {
+        console.error('Token not found in response', response.data);
+        setError('An error occurred. No token received.');
+      }
+    } else {
+      if (response.data) {
+        const errorData = await response.json();
+        setError(errorData.message || 'Login failed. Please check your credentials and try again.');
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
+    }
 
       }
     } catch (error) {
+
       setError(error.message || 'An error occurred while processing your request.');
     }
     finally {
@@ -116,12 +158,6 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
       }, 4000);
     }
   };
-  useEffect(() => {
-    if (!showDialog || (status && error)) { // Clear on close or both messages set
-      setStatus('');
-      setError('');
-    }
-  }, [showDialog, status, error]);
 
 
 

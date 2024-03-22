@@ -1,18 +1,41 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { Menu } from 'primereact/menu';
 import { Toolbar } from 'primereact/toolbar';
 import { Link } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
+import { AuthContext } from '../AuthContext/AuthContext';
 import PropTypes from 'prop-types';
 import AuthDialog from '../pages/AuthDialog';
+
+
+
 const Layout = ({ children }) => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext); // Use context if applicable
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false); 
+
   const handleClose = () => {
     setVisible(false)
   }
+
+  const handleAuthenticationPrompt = () => {
+    // Trigger login dialog or redirect to authentication flow
+    setShowDialog(true); // Example: Open login dialog
+  };
+
+  const CustomLink = ({ to, label, onClick }) =>
+    isAuthenticated ? (
+      <Link to={to} style={{ color: 'white', textDecoration: 'none' }}>
+        {label}
+      </Link>
+    ) : (
+      <button onClick={onClick || handleAuthenticationPrompt}>{label}</button>
+    );
+
+
+
   const rightItems = [
     <div className="" key="search">
       <span className="p-input-icon-left ">
@@ -108,7 +131,11 @@ const Layout = ({ children }) => {
     </div>
   );
 };
+
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-};
+  to: PropTypes.string.isRequired, // Required string for Link component
+  label: PropTypes.string.isRequired, // Required string for label
+  onClick: PropTypes.func, // Optional function for button onClick};
+}
 export default Layout;
