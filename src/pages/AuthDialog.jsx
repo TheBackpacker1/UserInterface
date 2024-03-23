@@ -16,7 +16,7 @@ const instance=axios.create({
 
 
 
-const AuthDialog = ({ showDialog, setShowDialog }) => {
+const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,6 +24,7 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
   const [completeName, setCompleteName] = useState('');
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
+  // eslint-disable-next-line no-unused-vars
   const [token, setToken] = useState(''); // State variable for token
 
 
@@ -131,7 +132,8 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
         instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken }`;
         setStatus('Login successful!');
         setError('');
-       // setShowDialog(false); // Close dialog after successful login
+        onLoginSuccess();
+        setShowDialog(false); // Close dialog after successful login
       } else {
         console.error('Token not found in response', response.data);
         setError('An error occurred. No token received.');
@@ -211,6 +213,8 @@ const AuthDialog = ({ showDialog, setShowDialog }) => {
   AuthDialog.propTypes = {
     showDialog: PropTypes.bool.isRequired,
     setShowDialog: PropTypes.func.isRequired,
+    onLoginSuccess: PropTypes.func.isRequired,
+
   };
 
 export default AuthDialog;

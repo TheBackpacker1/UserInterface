@@ -1,7 +1,7 @@
 import { useState,useContext } from 'react';
 import { Menu } from 'primereact/menu';
 import { Toolbar } from 'primereact/toolbar';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
@@ -12,6 +12,7 @@ import AuthDialog from '../pages/AuthDialog';
 
 
 const Layout = ({ children }) => {
+  // eslint-disable-next-line no-unused-vars
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext); // Use context if applicable
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false); 
@@ -20,15 +21,23 @@ const Layout = ({ children }) => {
     setVisible(false)
   }
 
+  const navigate = useNavigate();
+
   const handleAuthenticationPrompt = () => {
     // Trigger login dialog or redirect to authentication flow
     setShowDialog(true); // Example: Open login dialog
   };
 
+  const handleLoginSuccess = () => {
+    navigate('/trendingMarket');
+  };
+
+
+
   const CustomLink = ({ to, label, onClick }) =>
     isAuthenticated ? (
       <Link to={to} style={{ color: 'white', textDecoration: 'none' }}>
-        {label}
+      <span>{label}</span>
       </Link>
     ) : (
       <button onClick={onClick || handleAuthenticationPrompt}>{label}</button>
@@ -57,8 +66,12 @@ const Layout = ({ children }) => {
        
     },
     {
-      label: <Link to='/trendingMarket' style={{color:'white',textDecoration: 'none'}}>Trending Market</Link>,
-      icon: 'pi pi-fw pi-chart-line',
+      label: (
+        <CustomLink to='/trendingMarket' onClick={handleAuthenticationPrompt} style={{ color: 'white', textDecoration: 'none' }}>
+          Trending Market
+        </CustomLink>
+      ),
+       icon: 'pi pi-fw pi-chart-line',
       command: () => {
         handleClose();
       },
@@ -114,7 +127,7 @@ const Layout = ({ children }) => {
     <div className="parent-div" >
   
       <div style={{position:'absolute',left:50,top:0}}> <h1>Investi</h1></div>
-      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} />
+      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} onLoginSuccess={handleLoginSuccess} />
       <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between "  style={{backgroundColor:'transparent',border:'none',paddingRight:''}}
         right={rightItems}>
         <div className='p-d-flex p-ai-center' style={{ color: 'white' }}>
