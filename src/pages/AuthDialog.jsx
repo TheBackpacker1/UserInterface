@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import {Message} from 'primereact/message'
 import './AuthDialog.css';
 import axios from 'axios';
+import { Toast } from 'primereact/toast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS
 
 
 const instance=axios.create({
@@ -16,7 +19,7 @@ const instance=axios.create({
 
 
 
-const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess }) => {
+const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess,onLogout }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -61,6 +64,8 @@ const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
 
   
     // Check if passwords match when signing up
@@ -204,9 +209,22 @@ const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess }) => {
       </form> 
     </div>
   );
+  const handleLogout = async () => {
+    try {
+      // ... logout logic (clear local storage, etc.)
+      await onLogout();
+      setShowDialog(false);
+      toast.success('You have been logged out successfully!'); // PrimeReact Toast
+    } catch (error) {
+      console.error('Error during logout:', error);
+      toast.error('An error occurred during logout. Please try again.'); // PrimeReact Toast
+    }
+  };
+
     return (
       <Dialog visible={showDialog} onHide={() => setShowDialog(false)}>
         {renderForm()}
+   
       </Dialog>
     );
   }
@@ -214,7 +232,7 @@ const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess }) => {
     showDialog: PropTypes.bool.isRequired,
     setShowDialog: PropTypes.func.isRequired,
     onLoginSuccess: PropTypes.func.isRequired,
-
+  onLogout: PropTypes.func.isRequired,
   };
 
 export default AuthDialog;

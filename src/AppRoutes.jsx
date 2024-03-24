@@ -15,7 +15,6 @@ const AppRoutes = () => {
             <Route path="/trendingMarket" element={<TrendingMarket />} />
             <Route path="/profile" element={<Profile/>} />
             <Route path="/authDialog" element={<AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} />}> </Route>
-
             <Route path="/crypto/:symbol" element={<CryptoDetail />} />
         </Routes>
     )

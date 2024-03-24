@@ -1,11 +1,11 @@
-import { useState,useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Menu } from 'primereact/menu';
 import { Toolbar } from 'primereact/toolbar';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
-import { AuthContext } from '../AuthContext/AuthContext';
+import { AuthContext } from '../authContext/AuthContext';
 import PropTypes from 'prop-types';
 import AuthDialog from '../pages/AuthDialog';
 
@@ -13,9 +13,9 @@ import AuthDialog from '../pages/AuthDialog';
 
 const Layout = ({ children }) => {
   // eslint-disable-next-line no-unused-vars
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext); // Use context if applicable
+  const { isAuthenticated, setIsAuthenticated ,onLogout} = useContext(AuthContext); // Use context if applicable
   const [visible, setVisible] = useState(false);
-  const [showDialog, setShowDialog] = useState(false); 
+  const [showDialog, setShowDialog] = useState(false);
 
   const handleClose = () => {
     setVisible(false)
@@ -24,9 +24,10 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
 
   const handleAuthenticationPrompt = () => {
-    // Trigger login dialog or redirect to authentication flow
-    setShowDialog(true); // Example: Open login dialog
-  };
+    if (!isAuthenticated) {
+      setShowDialog(true);
+    }
+  }
 
   const handleLoginSuccess = () => {
     navigate('/trendingMarket');
@@ -34,48 +35,40 @@ const Layout = ({ children }) => {
 
 
 
-  const CustomLink = ({ to, label, onClick }) =>
-    isAuthenticated ? (
-      <Link to={to} style={{ color: 'white', textDecoration: 'none' }}>
-      <span>{label}</span>
-      </Link>
-    ) : (
-      <button onClick={onClick || handleAuthenticationPrompt}>{label}</button>
-    );
 
 
 
   const rightItems = [
     <div className="" key="search">
       <span className="p-input-icon-left ">
-        <i className="pi pi-search"   />
+        <i className="pi pi-search" />
         <InputText placeholder="Search" />
       </span>
     </div>,
     <Button className='' icon="pi pi-bell" rounded text severity="none" aria-label="Notification" key='notification' style={{ backgroundColor: '', color: 'grey', fontSize: '1rem' }} />,
     <Button icon="pi pi-user" rounded severity="info" aria-label="User" key='user' style={{ backgroundColor: 'grey', border: 'none' }} />,
-    <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{position:'absolute',left:0,top:'30px',backgroundColor:'grey',border:'none'}} />
+    <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{ position: 'absolute', left: 0, top: '30px', backgroundColor: 'grey', border: 'none' }} />
   ];
   const sidebarItems = [
     {
-      label: <Link to='/dashboard' style={{color:'white',textDecoration:'none'}} >Dashboard</Link>,
+      label: <Link to='/dashboard' style={{ color: 'white', textDecoration: 'none' }} >Dashboard</Link>,
       icon: 'pi pi-fw pi-home',
       command: () => {
         handleClose();
       },
-       
+
     },
     {
       label: (
-        <CustomLink to='/trendingMarket' onClick={handleAuthenticationPrompt} style={{ color: 'white', textDecoration: 'none' }}>
+        <Link to='/trendingMarket' onClick={handleAuthenticationPrompt} style={{ color: 'white', textDecoration: 'none' }}>
           Trending Market
-        </CustomLink>
+        </Link>
       ),
-       icon: 'pi pi-fw pi-chart-line',
+      icon: 'pi pi-fw pi-chart-line',
       command: () => {
         handleClose();
       },
-     
+
     },
     {
       label: 'Analyze',
@@ -107,7 +100,7 @@ const Layout = ({ children }) => {
       component: Link,
     },
     {
-      label: <Link to='/profile' style={{color:'white',textDecoration: 'none'}}   >Profile</Link>,
+      label: <Link to='/profile' style={{ color: 'white', textDecoration: 'none' }}   >Profile</Link>,
       icon: 'pi pi-fw pi-user',
       command: () => {
         handleClose();
@@ -115,25 +108,32 @@ const Layout = ({ children }) => {
     },
 
     {
-      label: <Link to='/authDialog' style={{color:'white',textDecoration: 'none'}} onClick={() => setShowDialog(true)}>LogIn</Link>,
-      icon: 'pi pi-fw pi-sign-in',
-      command: () => {
-        handleClose();
-      },
+      label: isAuthenticated ? (
+        <Link to={onLogout} style={{color: 'white', textDecoration: 'none'}}>Logout</Link>
+
+      ) : (<Link to='/authDialog' style={{ color: 'white', textDecoration: 'none' }} onClick={() => setShowDialog(true)}>
+            LogIn
+            </Link>
+      ),
+
+      icon:  isAuthenticated ? 'pi pi-fw pi-sign-out' : 'pi pi-fw pi-sign-in',
+      command: onLogout,
     },
 
   ];
   return (
     <div className="parent-div" >
-  
-      <div style={{position:'absolute',left:50,top:0}}> <h1>Investi</h1></div>
-      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} onLoginSuccess={handleLoginSuccess} />
-      <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between "  style={{backgroundColor:'transparent',border:'none',paddingRight:''}}
+
+      <div style={{ position: 'absolute', left: 50, top: 0 }}> <h1>Investi</h1></div>
+      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} onLoginSuccess={handleLoginSuccess}  onLogout={onLogout}/>
+      <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between " style={{ backgroundColor: 'transparent', border: 'none', paddingRight: '' }}
         right={rightItems}>
-        <div className='p-d-flex p-ai-center' style={{ color: 'white' }}>
-          <h3 >Welcome Back Mohamed!</h3>
-          <i className='pi pi-user p-ml-3 p-mr-3'></i>
-        </div>
+    {isAuthenticated && ( // Conditionally render name based on authentication state
+          <div className='p-d-flex p-ai-center' style={{ color: 'white' }}>
+            <h3>Welcome Back, {/* Retrieve user name from context or API */}</h3>
+            <i className='pi pi-user p-ml-3 p-mr-3'></i>
+          </div>
+        )}
       </Toolbar>
       <Sidebar visible={visible} style={{ width: '250px' }} baseZIndex={1000000}
         onHide={() => setVisible(false)}>
