@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext,useEffect } from 'react';
 import { Menu } from 'primereact/menu';
 import { Toolbar } from 'primereact/toolbar';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,20 +8,21 @@ import { Sidebar } from 'primereact/sidebar';
 import { AuthContext } from '../AuthContext/AuthContext';
 import PropTypes from 'prop-types';
 import AuthDialog from '../pages/AuthDialog';
-
+import axios from 'axios';
 
 
 const Layout = ({ children }) => {
   // eslint-disable-next-line no-unused-vars
-  const { isAuthenticated, setIsAuthenticated ,onLogout} = useContext(AuthContext); // Use context if applicable
+  const { isAuthenticated, setIsAuthenticated ,onLogout,user,setUser} = useContext(AuthContext); // Use context if applicable
+  const [userName, setUserName] = useState(user?.email || ''); // Use email as fallback for username
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setVisible(false)
   }
 
-  const navigate = useNavigate();
 
   const handleAuthenticationPrompt = () => {
     if (!isAuthenticated) {
@@ -33,6 +34,31 @@ const Layout = ({ children }) => {
     navigate('/trendingMarket');
   };
 
+
+ useEffect(() => {
+    const fetchUserData = async () => {
+      if (isAuthenticated && userName) {
+        try {
+          const response = await axios.get(`http://localhost:8080/api/v1/bot/users/${userName}`);
+          const userData = response.data;
+          setUser(userData); // Update user object in context
+          console.log('Fetched user data:', userData); // Log fetched data
+          localStorage.setItem('userData', JSON.stringify(userData)); // Store in local storage
+
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          // Handle errors gracefully
+        }
+      }
+    };
+
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUser(JSON.parse(storedUserData)); // Update context if data exists in local storage
+    }
+
+    fetchUserData();
+  }, [isAuthenticated, userName,setUser]); // Re-run effect on auth change or username change
 
 
 
@@ -130,7 +156,8 @@ const Layout = ({ children }) => {
         right={rightItems}>
     {isAuthenticated && ( // Conditionally render name based on authentication state
           <div className='p-d-flex p-ai-center' style={{ color: 'white' }}>
-            <h3>Welcome Back, {/* Retrieve user name from context or API */}</h3>
+            {console.log(user)}
+            <h3>Welcome Back, {user?.completeName||user?.name||'User'}</h3>
             <i className='pi pi-user p-ml-3 p-mr-3'></i>
           </div>
         )}

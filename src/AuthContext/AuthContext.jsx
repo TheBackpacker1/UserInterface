@@ -7,12 +7,15 @@ const AuthContext = createContext({
 isAuthenticated:false,
 setIsAuthenticated: () =>{},
 onLogout: () => {},
+setUser: () => {}, // Define setUser function here
+
 
 })
 
 
 const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Initial state
+    const [user, setUser] = useState(null); // Initialize user state
 
     const retrieveToken = async () => {
       try {
@@ -44,6 +47,8 @@ const AuthProvider = ({ children }) => {
     isAuthenticated,
     setIsAuthenticated,
     onLogout: handleLogout,
+    setUser, // Provide setUser as a context value
+
   };
     return (
       <AuthContext.Provider value={value}>
