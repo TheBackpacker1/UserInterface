@@ -6,9 +6,7 @@ import PropTypes from 'prop-types';
 import {Message} from 'primereact/message'
 import './AuthDialog.css';
 import axios from 'axios';
-import { Toast } from 'primereact/toast';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS
+
 
 
 const instance=axios.create({
@@ -19,7 +17,7 @@ const instance=axios.create({
 
 
 
-const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess,onLogout }) => {
+const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess,setIsAuthenticated}) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -110,16 +108,11 @@ const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess,onLogout }) => {
         }
       } else {
         // Login logic
-
      
         const formData = new FormData();
     formData.append('username', email);
     formData.append('password', password);
-
-
-
         const endpoint = 'http://localhost:8080/api/v1/bot/token'; // Use the provided token endpoint
-
         const response = await axios.post(endpoint,formData);
 
         
@@ -137,6 +130,7 @@ const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess,onLogout }) => {
         instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken }`;
         setStatus('Login successful!');
         setError('');
+        setIsAuthenticated(true);
         onLoginSuccess();
         setShowDialog(false); // Close dialog after successful login
       } else {
@@ -209,17 +203,7 @@ const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess,onLogout }) => {
       </form> 
     </div>
   );
-  const handleLogout = async () => {
-    try {
-      // ... logout logic (clear local storage, etc.)
-      await onLogout();
-      setShowDialog(false);
-      toast.success('You have been logged out successfully!'); // PrimeReact Toast
-    } catch (error) {
-      console.error('Error during logout:', error);
-      toast.error('An error occurred during logout. Please try again.'); // PrimeReact Toast
-    }
-  };
+
 
     return (
       <Dialog visible={showDialog} onHide={() => setShowDialog(false)}>
@@ -233,6 +217,8 @@ const AuthDialog = ({ showDialog, setShowDialog ,onLoginSuccess,onLogout }) => {
     setShowDialog: PropTypes.func.isRequired,
     onLoginSuccess: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
+  setIsAuthenticated: PropTypes.func.isRequired,
+
   };
 
 export default AuthDialog;

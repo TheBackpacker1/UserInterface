@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
-import { AuthContext } from '../authContext/AuthContext';
+import { AuthContext } from '../AuthContext/AuthContext';
 import PropTypes from 'prop-types';
 import AuthDialog from '../pages/AuthDialog';
 
@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
     },
     {
       label: (
-        <Link to='/trendingMarket' onClick={handleAuthenticationPrompt} style={{ color: 'white', textDecoration: 'none' }}>
+        <Link to={isAuthenticated ? '/trendingMarket' : '/authDialog'} onClick={handleAuthenticationPrompt} style={{ color: 'white', textDecoration: 'none' }}>
           Trending Market
         </Link>
       ),
@@ -109,7 +109,7 @@ const Layout = ({ children }) => {
 
     {
       label: isAuthenticated ? (
-        <Link to={onLogout} style={{color: 'white', textDecoration: 'none'}}>Logout</Link>
+        <Link to='/' onClick={onLogout} style={{color: 'white', textDecoration: 'none'}}>Logout</Link>
 
       ) : (<Link to='/authDialog' style={{ color: 'white', textDecoration: 'none' }} onClick={() => setShowDialog(true)}>
             LogIn
@@ -125,7 +125,7 @@ const Layout = ({ children }) => {
     <div className="parent-div" >
 
       <div style={{ position: 'absolute', left: 50, top: 0 }}> <h1>Investi</h1></div>
-      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} onLoginSuccess={handleLoginSuccess}  onLogout={onLogout}/>
+      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} onLoginSuccess={handleLoginSuccess}  setIsAuthenticated={setIsAuthenticated}  onLogout={onLogout}/>
       <Toolbar className=" p-mb-6 p-d-flex p-jc-space-between " style={{ backgroundColor: 'transparent', border: 'none', paddingRight: '' }}
         right={rightItems}>
     {isAuthenticated && ( // Conditionally render name based on authentication state

@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 
 
 const AuthContext = createContext({
-
 isAuthenticated:false,
 setIsAuthenticated: () =>{},
 onLogout: () => {},
-
 
 })
 
