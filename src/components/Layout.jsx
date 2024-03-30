@@ -14,6 +14,7 @@ import axios from 'axios';
 const Layout = ({ children }) => {
   // eslint-disable-next-line no-unused-vars
   const { isAuthenticated, setIsAuthenticated ,onLogout,user,setUser} = useContext(AuthContext); // Use context if applicable
+  // eslint-disable-next-line no-unused-vars
   const [userName, setUserName] = useState(user?.email || ''); // Use email as fallback for username
   const [visible, setVisible] = useState(false);
   const [showDialog, setShowDialog] = useState(false);

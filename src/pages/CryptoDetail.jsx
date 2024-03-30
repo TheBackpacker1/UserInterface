@@ -1,21 +1,53 @@
 import { useParams } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import axios from 'axios' 
+import { useEffect, useState } from 'react';
+
+
+
 
 const CryptoDetail = () => {
   const { symbol } = useParams();
+ const [cryptoData,setCryptoData]=useState(null)
+ const[isLoading, setIsLoading]=useState(true)
+ const[token,setToken]=useState(null)
 
-  const cryptoData = {
-    token: 'BTC',
-    symbol: 'B',
-    change: '+55.98%',
-    price: '$11,743.00',
-    marketCap: '$245,39M',
-    supply: '19,123,123',
-    volume: '$12,345,678',
-    high: '$12,345.00',
-    low: '$10,567.00',
-  };
+ const retrieveToken=()=> { 
+try { 
+
+     const storedToken = localStorage.getItem('auth_token')
+     if(storedToken){
+      setToken(storedToken)
+
+}
+}
+catch (error) { 
+  console.error('Error retrieving token:',error)
+}
+
+ 
+}
+
+
+useEffect(() =>  {
+retrieveToken()
+const fetchData =async()=> {
+
+try {
+const response = await axios.get('/ma')
+
+
+
+}
+
+
+
+
+}
+
+
+})
 
   return (
     <div className="p-grid">

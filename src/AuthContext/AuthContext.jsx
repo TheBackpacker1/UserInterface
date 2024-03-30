@@ -15,6 +15,7 @@ setUser: () => {}, // Define setUser function here
 
 const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Initial state
+    // eslint-disable-next-line no-unused-vars
     const [user, setUser] = useState(null); // Initialize user state
 
     const retrieveToken = async () => {
