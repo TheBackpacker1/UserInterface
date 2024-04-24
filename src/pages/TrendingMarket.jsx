@@ -1,70 +1,82 @@
-import {DataTable} from 'primereact/datatable'
-import {Column} from 'primereact/column'
-import { Link } from 'react-router-dom' 
+import { useEffect, useState } from 'react'
+import { DataTable } from 'primereact/datatable'
+import { Column } from 'primereact/column'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+const API_URL = 'https://api.coinranking.com/v2/coins';
 
 const TrendingMarket = () => {
-
-    const cryptoData = [
-        {
-          name: 'Bitcoin',
-          symbol: 'BTC',
-          change: '+55.98%',
-          price: '$11,743.00',
-          marketCap: '$245,39M',
-        },
-        {
-          name: 'Ethereum',
-          symbol: 'ETH',
-          change: '-10.11%',
-          price: '$8,857.00',
-          marketCap: '$784,12M',
-        },
-        {
-          name: 'LUNA',
-          symbol: 'L',
-          change: '+75.74%',
-          price: '$9,828.00',
-          marketCap: '$586,33M',
-        },
-        {
-          name: 'BNB',
-          symbol: 'BNB',
-          change: '+28.14%',
-          price: '$15,263.00',
-          marketCap: '$110,94M',
-        },
-        {
-          name: 'ADA',
-          symbol: 'ADA',
-          change: '-62.37%',
-          price: '$7,214.00',
-          marketCap: '$547,12M',
-        },
-      ]
+  const [coins, setCoins] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
 
+  useEffect(() => {
+    const fetchData = async () => {
+
+      setIsLoading(true)
+      setError(null)
+
+      try {
+        const response = await axios.get(API_URL)
+
+        if (response.status === 200) {
+
+        const transformedData= response.data.coins.map((item)=> ({
+          name: item.name,
+          symbol: item.symbol,
+          change: item.change,
+          price: item.price,
+          marketCap: item.marketCap,
+
+        }))
+        setCoins(transformedData)
+      }
+        else {
+          setError(new Error(`API request failed with status ${response.status}`));
+        }
+      }
+      catch (error) {
+        console.error('Error fetching data:', error)
+        setError(error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchData()
+  }
+    , []
+  )
   return (
     <div>
-     <div className="p-grid">
-      <div className="p-col-12">
+      <div className="p-grid">
+        <div className="p-col-12">
 
-        <h1>Trending Market </h1>
+          <h1>Trending Market </h1>
+        </div>
+        <div className="p-col-12" >
+          {isLoading && <p> Loading data...</p>}
+          {error && <p> Error fetching data : {error.message}</p>}
+          {!isLoading && !error && coins.length > 0 && (
+            <DataTable value={coins}>
+              <Column field="name" header="Name" />
+              <Column field="symbol" header="Symbol" />
+              <Column field="change" header="24H Change" />
+              <Column field="price" header="Last Price" />
+              <Column field="marketCap" header="Market Cap" />
+              <Column
+                body={(rowData) => (
+                  <Link to={`/crypto/${rowData.symbol}`}>
+                    Details
+                  </Link>
+                )}
+                headerStyle={{ textAlign: 'center', width: '10%' }} />
+            </DataTable>
+          )}
+        </div>
+
       </div>
-      <div className="p-col-12" >
-      <DataTable value={cryptoData}>
-        <Column field='name' header='Name' />
-        <Column field='symbol' header='Symbol'/>
-        <Column field='change' header='24H Change' />
-        <Column field='price' header='Last Price' />
-        <Column field='marketCap' header='Market Cap' />
-        <Column body={(rowData) => <Link to={`/crypto/${rowData.symbol}`}> Details </Link>} headerStyle={{ textAlign:'center',width:'10%'}} />
-      </DataTable>
-
-      </div>
-
-
-
-     </div>
 
     </div>
   )

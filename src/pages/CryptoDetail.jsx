@@ -29,7 +29,7 @@ catch (error) {
  
 }
 
-
+/*
 useEffect(() =>  {
 retrieveToken()
 const fetchData =async()=> {
@@ -47,7 +47,7 @@ const response = await axios.get('/ma')
 }
 
 
-})
+})*/
 
   return (
     <div className="p-grid">
