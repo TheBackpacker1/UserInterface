@@ -77,14 +77,7 @@ const Layout = ({ children }) => {
     <Button type="button" icon="pi pi-bars" onClick={() => setVisible(true)} className='menu-button' key='menu-button' style={{ position: 'absolute', left: 0, top: '30px', backgroundColor: 'grey', border: 'none' }} />
   ];
   const sidebarItems = [
-    {
-      label: <Link to='/dashboard' style={{ color: 'white', textDecoration: 'none' }} >Dashboard</Link>,
-      icon: 'pi pi-fw pi-home',
-      command: () => {
-        handleClose();
-      },
-
-    },
+   
     {
       label: (
         <Link to={isAuthenticated ? '/trendingMarket' : '/authDialog'} onClick={handleAuthenticationPrompt} style={{ color: 'white', textDecoration: 'none' }}>

@@ -4,7 +4,7 @@ import { Column } from 'primereact/column'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-const API_URL = 'https://api.coinranking.com/v2/coins';
+const API_URL = 'http://localhost:8080/CoinMarketData/all';  
 
 const TrendingMarket = () => {
   const [coins, setCoins] = useState([])
@@ -14,45 +14,35 @@ const TrendingMarket = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
-      setIsLoading(true)
-      setError(null)
-
+      setIsLoading(true);
+      setError(null);
+  
       try {
-        const response = await axios.get(API_URL)
+        const response = await axios.get(API_URL  , { 
+          withCredentials: true  } );
+        
 
-        if (response.status === 200) {
+        if (response.status === 200) { 
+          setCoins(response.data);
 
-        const transformedData= response.data.coins.map((item)=> ({
-          name: item.name,
-          symbol: item.symbol,
-          change: item.change,
-          price: item.price,
-          marketCap: item.marketCap,
-
-        }))
-        setCoins(transformedData)
-      }
-        else {
-          setError(new Error(`API request failed with status ${response.status}`));
+        }else { 
+          throw new Error(`API request failed with status${response.status}`)
         }
-      }
-      catch (error) {
-        console.error('Error fetching data:', error)
-        setError(error)
+       
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError(error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    fetchData()
-  }
-    , []
-  )
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <div className="p-grid">
         <div className="p-col-12">
-
           <h1>Trending Market </h1>
         </div>
         <div className="p-col-12" >
@@ -80,6 +70,6 @@ const TrendingMarket = () => {
 
     </div>
   )
-}
 
+}
 export default TrendingMarket
