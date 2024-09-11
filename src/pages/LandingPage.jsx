@@ -1,19 +1,39 @@
 import { useState ,useEffect} from 'react';
 
 
-import { Container,Typography,Button,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia, } from '@mui/material'
+import { Container,Typography,Button,Grid,Card,CardContent,CardMedia,AppBar,Toolbar,Menu,MenuItem,useMediaQuery,useTheme, } from '@mui/material'
 import axios from 'axios'
 import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 const API_URL = 'https://api.coinranking.com/v2/coins';
 const COINS = ['bitcoin', 'ethereum', 'tether', 'bnb', 'usdt'];
 
 const useStyles = makeStyles((theme) => ({
+
+  appBar: {
+    backgroundColor: '#111111', // Dark background
+    color: '#ffffff', // White text
+  },
+  appBarTitle: {
+    flexGrow: 1, // Use flexbox to grow and push content to the right
+  },
+  navLink: {
+    color: '#ffffff', // White text
+    textDecoration: 'none', // Remove underline from links
+    marginRight: theme.spacing(2), // Add spacing between links
+  },
+  navMenuIcon: {
+    marginLeft: 'auto', // Move icon to the left side
+    marginRight: -theme.spacing(2), // Add spacing from the right edge
+    color: '#ffffff', // White text
+  },
+  navMenu: {
+    // ... styles for the menu itself (optional)
+  },
+
   heroSection: {
     textAlign: 'center',
     marginTop: '4rem',
@@ -60,7 +80,16 @@ const LandingPage = () => {
   const [coins , setCoins] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [anchorEl,setAnchorEl]=useSate(null)
+  const theme = useTheme() 
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true); 
@@ -95,6 +124,7 @@ const LandingPage = () => {
     <Container maxWidth="md">
     {/* Navigation Bar */}
       <nav>
+      
         <ul>
           <li><a href="#">Home</a></li>
           <li><a href="#">Businesses</a></li>
@@ -106,7 +136,6 @@ const LandingPage = () => {
       
       {/* Hero Section */}
       <div className={classes.heroSection}>
-        <Typography variant="h1">CryptoCap</Typography>
         <Typography variant="h2">Start and Build Your Crypto Portfolio Here</Typography>
         <Typography variant="body1">
           Only at CryptoCap, you can build a good portfolio and learn best practices about cryptocurrency.
@@ -130,26 +159,60 @@ const CoinCard = ({ coin }) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} md={3}>
-      <Card  className={classes.coinCard}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={coin.iconUrl} 
-          alt={coin.name}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.coinCardTitle}>
-            {coin.symbol} ({coin.name})
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Price: ${coin.price}
-            <br />
-            Change: {coin.change}%
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+
+   <Container  > 
+     <AppBar position="static" className={classes.appBar}>
+
+      <Toolbar>     
+      <Typography variant="h6" component="div" className={classes.appBarTitle}>
+          Investi 
+        </Typography>       
+          {  isMobile ?  (
+            
+            <IconButton   
+            aria-label="account of current user"
+            aria-controls="account-menu"
+            aria-haspopup="true"
+            onClick={handleMenuOpen}
+            className={classes.navMenuIcon}>
+
+
+
+
+
+            <MenuIcon />
+            </IconButton>
+
+
+
+
+          ) 
+        
+        
+        
+        
+        
+        } 
+          
+           </Toolbar>  
+
+
+
+
+
+
+     </AppBar>
+
+
+
+
+
+
+
+   </Container>
+
+
+   
   )
 
   }
