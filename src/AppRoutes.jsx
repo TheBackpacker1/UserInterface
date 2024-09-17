@@ -3,7 +3,7 @@ import TrendingMarket from './pages/TrendingMarket';
 import CryptoDetail from  './pages/CryptoDetail'
 import Profile from './pages/Profile';
 import AuthDialog from './pages/AuthDialog'
-import LandingPage from './pages/LandingPage'
+import LandingPage from './pages/LandingPage/LandingPage'
 import  {useState} from 'react'
 import Layout from './components/Layout';
 const AppRoutes = () => {
