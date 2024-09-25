@@ -1,17 +1,17 @@
-
-import { useState } from 'react'
-import { Menubar } from 'primereact/menubar'
+import { useState } from 'react'; 
+import { Dropdown } from 'primereact/dropdown'; 
 import { Button } from 'primereact/button';
-import  {Dropdown} from 'primereact/dropdown' 
+import { Menubar } from 'primereact/menubar';
+import 'primeicons/primeicons.css'; 
+import PropTypes from 'prop-types';
 
-const NavBar = () => {
-  const isMobile = window.innerWidth <= 640
+const NavBar = ({  darkMode, handleThemeSwitch }) => {
 
-  const [themeMode, setThemeMode] = useState('light');
-  const [selectedLanguage,setSelectedLanguage]=useState('EN')
+  const [selectedLanguage, setSelectedLanguage] = useState('EN');
 
-  const toggleTheme = () => {
-    setThemeMode(themeMode === 'light' ? 'dark' : 'light');
+  const handleLanguageChange = (e) => {
+    setSelectedLanguage(e.value); // Update the selected language state
+    console.log('Language changed to:', e.value); // Log the language change
   };
 
   const languages = [
@@ -21,13 +21,7 @@ const NavBar = () => {
     { label: 'DE', value: 'DE' },
     { label: 'TUR', value: 'TUR' },
     { label: 'ESP', value: 'ESP' },
-
   ];
-
-  const handleLanguageChange = (e) => {
-    setSelectedLanguage(e.value); // Update the selected language state
-    console.log('Language changed to:', e.value);
-  };
 
   const navItems = [
     { label: 'Home', icon: 'pi pi-home' },
@@ -35,53 +29,51 @@ const NavBar = () => {
     { label: 'Trade', icon: 'pi pi-bitcoin' },
     { label: 'Market', icon: 'pi pi-chart-line' },
     { label: 'Learn', icon: 'pi pi-book' },
-  ] 
+  ];
 
- 
-
-  const end =(
-   <div className='p-menubar-custom-end flex align-items-center'> 
-     <Dropdown  
-     value={selectedLanguage}
-     options={languages}
-     onChange={handleLanguageChange}
-     style={{
-      border: 'none',
-      boxShadow: 'none',
-      padding: '0.25rem',
-      background: 'transparent',
-    }}
-    
-     placeholder='Select a language' 
-    />
-   
+  const end = (
+    <div className='p-menubar-custom-end flex align-items-center'> 
+      <Dropdown  
+      value={selectedLanguage}
+        options={languages}
+        onChange={handleLanguageChange}
+        style={{
+          border: 'none',
+          boxShadow: 'none',
+          padding: '0.25rem',
+          background: 'transparent',
+        }}
+        placeholder='Select a language' 
+      />
+      <Button
+        icon={darkMode ? 'pi pi-moon' : 'pi pi-sun'}
+        className="p-button-text p-mx-3"
+        onClick={handleThemeSwitch}
+        style={{ fontSize: '1.5rem', color: '#ffffff' }}
+        aria-label="Theme Switcher"
+      />
       <Button
         label="Login"
         icon="pi pi-sign-in"
-        className="p-button-text "
+        className="p-button-text"
         style={{ marginLeft: '1rem', color: '#ffffff' }}
-
         onClick={() => console.log('Login clicked')}
       />
     </div>
-   
+  );
 
-
-
-  )
-   const start = <h1 className='text-white mr-4'>CryptoInvest </h1>
+  const start = <h1 className='text-white mr-6'>CryptoInvest</h1>;
 
   return (
-    <div className={`navbar-container ${themeMode ==='dark' ? 'bg-gray-800 text-white' : ''}`}>
+    <Menubar model={navItems} start={start} end={end} 
+    className='custom-menubar flex justify-content-between ' />
+  );
+};
 
-      <Menubar model={navItems}
-      start={start}
-      end={end}
-       className='custom-menubar felx justify-content-between'
-        />
-   
-    </div>
-  )
-}
 
-export default NavBar
+NavBar.propTypes = {
+  selectedTheme: PropTypes.string.isRequired,
+  darkMode: PropTypes.bool.isRequired,
+  handleThemeSwitch: PropTypes.func.isRequired,
+};
+export default NavBar;
