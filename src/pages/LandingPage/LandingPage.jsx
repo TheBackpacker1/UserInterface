@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 import 'primereact/resources/primereact.min.css';   
 import Navbar from './NavBar';
-import 'primereact/resources/themes/arya-green/theme.css';
+import HeroSection from './HeroSection'
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primeicons/primeicons.css'; 
 
 
@@ -12,6 +13,13 @@ const LandingPage = () => {
   const [darkMode, setDarkMode] = useState(false);
 
 
+  const heroRef = useRef(null);
+
+  const scrollToHero = () => {
+    if (heroRef.current) {
+      heroRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   const switchTheme = (theme) => {
     const themeLink = document.getElementById('theme-link');
     if (themeLink) {
@@ -37,9 +45,11 @@ const LandingPage = () => {
       darkMode={darkMode}
       handleThemeSwitch={handleThemeSwitch}
       handleThemeChange={handleThemeChange}
+      onHomeClick={scrollToHero} 
+
     />
-    {/* Other landing page content goes here */}
-  </div> 
+      <HeroSection ref={heroRef} />
+      </div> 
   );
 
   

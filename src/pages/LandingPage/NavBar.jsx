@@ -3,6 +3,9 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
 import 'primeicons/primeicons.css'; 
+import 'primereact/resources/primereact.min.css'; 
+
+
 import PropTypes from 'prop-types';
 
 const NavBar = ({  darkMode, handleThemeSwitch }) => {
@@ -66,7 +69,8 @@ const NavBar = ({  darkMode, handleThemeSwitch }) => {
 
   return (
     <Menubar model={navItems} start={start} end={end} 
-    className='custom-menubar flex justify-content-between ' />
+    className='custom-menubar flex justify-content-between ' 
+    style={{background:'green-50'}}/>
   );
 };
 
