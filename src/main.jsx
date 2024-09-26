@@ -5,7 +5,7 @@ import AppRoutes from './AppRoutes'
 import 'primereact/resources/themes/arya-blue/theme.css'
 import 'primeicons/primeicons.css'
 import { AuthProvider } from './AuthContext/AuthContext'
-
+import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

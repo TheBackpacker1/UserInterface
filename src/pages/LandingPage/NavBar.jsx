@@ -65,7 +65,7 @@ const NavBar = ({  darkMode, handleThemeSwitch }) => {
     </div>
   );
 
-  const start = <h1 className='text-white mr-6'>CryptoInvest</h1>;
+  const start = <h1 className='text-white mr-6' >CryptoInvest</h1>;
 
   return (
     <Menubar model={navItems} start={start} end={end} 
