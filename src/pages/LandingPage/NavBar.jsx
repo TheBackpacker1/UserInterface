@@ -2,13 +2,10 @@ import { useState } from 'react';
 import { Dropdown } from 'primereact/dropdown'; 
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
-import 'primeicons/primeicons.css'; 
-import 'primereact/resources/primereact.min.css'; 
-
-
+import  './NavBar.css'
 import PropTypes from 'prop-types';
 
-const NavBar = ({  darkMode, handleThemeSwitch }) => {
+const NavBar = () => {
 
   const [selectedLanguage, setSelectedLanguage] = useState('EN');
 
@@ -35,7 +32,7 @@ const NavBar = ({  darkMode, handleThemeSwitch }) => {
   ];
 
   const end = (
-    <div className='p-menubar-custom-end flex align-items-center'> 
+    <div className=''> 
       <Dropdown  
       value={selectedLanguage}
         options={languages}
@@ -48,29 +45,26 @@ const NavBar = ({  darkMode, handleThemeSwitch }) => {
         }}
         placeholder='Select a language' 
       />
-      <Button
-        icon={darkMode ? 'pi pi-moon' : 'pi pi-sun'}
-        className="p-button-text p-mx-3"
-        onClick={handleThemeSwitch}
-        style={{ fontSize: '1.5rem', color: '#ffffff' }}
-        aria-label="Theme Switcher"
-      />
+      
       <Button
         label="Login"
         icon="pi pi-sign-in"
         className="p-button-text"
-        style={{ marginLeft: '1rem', color: '#ffffff' }}
+        style={{ marginLeft: '1rem',
+           color: '#ffffff',
+           backgroundColor: '#26A69A',
+
+           }}
         onClick={() => console.log('Login clicked')}
       />
     </div>
   );
 
-  const start = <h1 className='text-white mr-6' >CryptoInvest</h1>;
+  const start = <h1 className='' >CryptoInvest</h1>;
 
   return (
     <Menubar model={navItems} start={start} end={end} 
-    className='custom-menubar flex justify-content-between ' 
-    style={{background:'green-50'}}/>
+    className='custom-menubar  ' />
   );
 };
 

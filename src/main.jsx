@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import AppRoutes from './AppRoutes'
-import 'primereact/resources/themes/arya-blue/theme.css'
-import 'primeicons/primeicons.css'
+import 'primereact/resources/primereact.min.css';  // Core PrimeReact styles
+import 'primeicons/primeicons.css';  // PrimeReact icons
 import { AuthProvider } from './AuthContext/AuthContext'
 import './index.css'
 
