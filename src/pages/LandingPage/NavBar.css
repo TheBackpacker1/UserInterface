@@ -23,29 +23,24 @@
 
   /* Responsive Styles */
 @media (max-width: 768px) {
-  .custom-menubar {
-      flex-direction: column; /* Stack menu items vertically */
-      padding: 10px 0; /* Add padding */
-  }
-  
-  .custom-menubar .p-menuitem-link {
-      display: block; /* Make menu items block-level */
-      padding: 10px; /* Increase tappable area */
-      font-size: 1.1rem; /* Increase font size for better readability */
-  }
+    .custom-menubar {
+        flex-direction: column; /* Stack menu items vertically */
+        padding: 10px 0; /* Add padding */
+    }
+    
+    .custom-menubar .p-menuitem-link {
+        display: block; /* Make menu items block-level */
+        padding: 10px; /* Increase tappable area */
+        font-size: 1.1rem; /* Increase font size for better readability */
+    }
 
-  /* Style for dropdown and button */
-  .p-dropdown {
-      width: 100%; /* Full width dropdown */
-  }
+    /* Style for dropdown and button */
+    .p-dropdown {
+        width: 100%; /* Full width dropdown */
+    }
 
-  .p-dropdown {
-    width: 100%; /* Full width dropdown */
-    margin-bottom: 10px; /* Space between dropdown and button */
-}
-
-  .p-button-text {
-      width: 100%; /* Full width button */
-      margin-top: 10px; /* Space between dropdown and button */
-  }
+    .p-button-text {
+        width: 100%; /* Full width button */
+        margin-top: 10px; /* Space between dropdown and button */
+    }
 }
