@@ -1,12 +1,26 @@
-.hero-section{ 
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-height: 100vh;
-text-align: center;
-
+.hero-section {
+    background: linear-gradient(to right, #26A69A, #00BFFF); /* Gradient background */
+    color: white; /* Text color */
+    padding: 120px 20px; /* Add padding */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    text-align: center; /* Center align text */
+    position: relative; /* For overlay positioning if needed */
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    border-radius: 15px; /* Match border radius */
+    z-index: 1; /* Place below content */
+  }
+  .hero-content {
+  position: relative; /* Positioning for content above overlay */
+  z-index: 2; /* Ensure content is above the overlay */
 }
 .hero-section p {
     font-size: 1.5rem; /* Adjust the size of the paragraph */

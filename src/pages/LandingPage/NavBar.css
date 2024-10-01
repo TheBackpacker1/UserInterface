@@ -1,5 +1,21 @@
 .custom-menubar {
-    background-color: #EEEEEE; /* You can choose a different shade */
+    background-color: #E0E0E0; /* You can choose a different shade */
    border: none; /* Removes the border */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+
+
+  .custom-menubar .p-menuitem-link {
+    color: #ffffff; /* Default link color */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth transition effect */
+  }
+  
+  .custom-menubar .p-menuitem-link:hover {
+    color: #26A69A; /* Change the hover color here */
+  }
+  
+  /* Additional styling for other elements */
+  .p-button-text {
+    color: #ffffff !important; /* Ensure button text stays white */
   }

@@ -5,7 +5,7 @@ import { Menubar } from 'primereact/menubar';
 import  './NavBar.css'
 import PropTypes from 'prop-types';
 
-const NavBar = () => {
+const NavBar =() => {
 
   const [selectedLanguage, setSelectedLanguage] = useState('EN');
 
