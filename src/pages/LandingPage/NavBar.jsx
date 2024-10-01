@@ -24,8 +24,8 @@ const NavBar =() => {
   ];
 
   const navItems = [
-    { label: 'Home', icon: 'pi pi-home' }, 
-      { label: 'Market', icon: 'pi pi-chart-line' },
+    { label: 'Home', icon: 'pi pi-home',command: () => scrollToSection('hero-section') }, 
+      { label: 'Market', icon: 'pi pi-chart-line', command: () => scrollToSection('market-trend-section') },
     { label: 'Businesses', icon: 'pi pi-briefcase' },
     { label: 'Trade', icon: 'pi pi-bitcoin' },
     { label: 'Learn', icon: 'pi pi-book' },
@@ -60,8 +60,19 @@ const NavBar =() => {
     </div>
   );
 
-  const start = <h1 className='' >CryptoInvest</h1>;
 
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const start = (
+    <h1 style={{ cursor: 'pointer' }} onClick={() => scrollToSection('hero-section')}>
+      CryptoInvest
+    </h1>
+  );
   return (
     <Menubar model={navItems} start={start} end={end} 
     className='custom-menubar  ' />
