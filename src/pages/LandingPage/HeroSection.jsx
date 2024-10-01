@@ -7,8 +7,9 @@ const HeroSection = () => {
   return (
 <div className="hero-section  ">
 <div className="hero-content">
-        <h1>Start and Build Your Crypto Portfolio Here</h1>
-        <p>Only at CryptoCap, you can build a good portfolio and learn best practices about cryptocurrency.</p>
+        <h1>Empower Your Crypto Investment Journey</h1>
+        <p>At CryptoInvest, we provide the tools and insights to help investors make informed decisions when buying and selling cryptocurrency. Access valuable analytics and trends to navigate the dynamic world of crypto confidently.
+        </p>
         <button className="cta-button">Get Started</button>
       </div>
     </div>

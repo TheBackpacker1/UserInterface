@@ -1,8 +1,7 @@
 .hero-section {
     background: linear-gradient(to right, #26A69A, #00BFFF); /* Gradient background */
     color: white; /* Text color */
-    padding: 120px 20px; /* Add padding */
-    border-radius: 15px; /* Rounded corners */
+    padding: 160px 20px; /* Add padding */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
     text-align: center; /* Center align text */
     position: relative; /* For overlay positioning if needed */
@@ -15,7 +14,6 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-    border-radius: 15px; /* Match border radius */
     z-index: 1; /* Place below content */
   }
   .hero-content {
@@ -31,6 +29,7 @@
     padding: 0.75rem 1.5rem; /* Button padding */
     font-size: 1rem; /* Button text size */
     background-color: #26A69A; /* Button background color */
+    font-weight: bold;
     color: white; /* Button text color */
     border: none; /* Remove border */
     border-radius: 5px; /* Rounded corners */

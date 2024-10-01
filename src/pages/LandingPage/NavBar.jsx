@@ -24,10 +24,10 @@ const NavBar =() => {
   ];
 
   const navItems = [
-    { label: 'Home', icon: 'pi pi-home' },
+    { label: 'Home', icon: 'pi pi-home' }, 
+      { label: 'Market', icon: 'pi pi-chart-line' },
     { label: 'Businesses', icon: 'pi pi-briefcase' },
     { label: 'Trade', icon: 'pi pi-bitcoin' },
-    { label: 'Market', icon: 'pi pi-chart-line' },
     { label: 'Learn', icon: 'pi pi-book' },
   ];
 

@@ -1,0 +1,78 @@
+.market-trend-section {
+
+padding: 40px;
+text-align: center;
+background: linear-gradient(to right, #e0f7fa, #faeafc);
+
+}
+
+h2{
+    color: #26A69A;
+}
+.coin-card-container { 
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+
+.coin-card { 
+border-radius: 15px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+padding: 20px;
+text-align: left;
+position: relative;
+transition: tranform 0.2s ease;
+
+
+}
+.coin-card:hover {
+    transform: translateY(-5px);
+}
+.coin-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.coin-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.coin-info {
+    display: flex;
+    flex-direction: column;
+}
+.coin-symbol {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.coin-name {
+    font-size: 0.9rem;
+    color: gray;
+}
+.coin-price {
+
+    font-size: 1.8rem;
+    font-weight: bold;
+    color:#26A69A ;
+    margin-top: 10px;
+
+}
+.coin-percentage {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.coin-percentage.positive {
+    color: #26a69a;
+}
+
+.coin-percentage.negative {
+    color: #e57373;
+}
+.coin-trend-line {
+margin-top: 15px;
+}
