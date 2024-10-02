@@ -1,0 +1,70 @@
+.guide-section {
+padding: 40px;
+background: linear-gradient(to right, #e0f7fa, #faeafc);
+text-align: center;
+
+
+}
+.guide-header {
+    margin-bottom: 30px;
+  }
+
+  .guide-header h2 {
+    color: #26A69A;
+    font-size: 2rem;
+  }
+  .guide-header p {
+    font-size: 1.1rem;
+    color: #555555;
+  }
+
+  .cta-button {
+    background-color: #26A69A;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+
+  .guide-steps {
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+  }
+
+  .guide-card { 
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.2s ease;
+
+
+
+  }
+
+  
+  .guide-card:hover{   
+     transform: translateY(-5px);
+  }
+  .icon-wrapper {
+    margin-bottom: 15px;
+  }
+  .step-icon {
+    font-size: 2.5rem;
+    color: #26A69A;
+  }
+  .step-content h4 {
+    color: #26A69A;
+    margin-bottom: 10px;
+  }
+  .step-content p {
+    color: #555555;
+    font-size: 1rem;
+  }

@@ -6,7 +6,7 @@ import MarketTrend from './MarketTrend';
 import { Button } from 'primereact/button'; // Import Button from PrimeReact
 import { useEffect, useState } from 'react';
 import Businesses from './Businesses';
-
+import Guide from './Guide';
 
 const LandingPage = () => {
   const [showScroll, setShowScroll] = useState(false);
@@ -43,8 +43,11 @@ const LandingPage = () => {
       <div id="market-trend-section">
         <MarketTrend />
       </div>
-      <div id="businesses-section"> <Businesses /></div>
+      <div id="businesses-section"> 
+        <Businesses /></div>
      
+      <div id="guide-section">
+         <Guide /></div>
 
       {showScroll && (
         <Button

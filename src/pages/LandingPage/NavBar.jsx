@@ -27,7 +27,7 @@ const NavBar =() => {
     { label: 'Home', icon: 'pi pi-home',command: () => scrollToSection('hero-section') }, 
       { label: 'Market', icon: 'pi pi-chart-line', command: () => scrollToSection('market-trend-section') },
     { label: 'Businesses', icon: 'pi pi-briefcase' ,command: () => scrollToSection('businesses-section')},
-    { label: 'Guide', icon: 'pi pi-info-circle', command: () => scrollToSection('news-section') },
+    { label: 'Guide', icon: 'pi pi-info-circle', command: () => scrollToSection('guide-section') },
     { label: 'Learn', icon: 'pi pi-book', command: () => scrollToSection('learn-section') }
   ];
 
