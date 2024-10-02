@@ -19,7 +19,7 @@ const Businesses = () => {
       },
       {
         title: "User-Friendly Dashboard",
-        description: "Manage your portfolio with an easy-to-use dashboard designed for simplicity and speed.",
+        description: "Easily control and manage your work with a streamlined dashboard designed for efficiency and simplicity",
         icon: "pi pi-desktop",
       },
       {

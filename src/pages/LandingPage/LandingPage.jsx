@@ -43,12 +43,14 @@ const LandingPage = () => {
       <div id="market-trend-section">
         <MarketTrend />
       </div>
-      <Businesses />
+      <div id="businesses-section"> <Businesses /></div>
+     
+
       {showScroll && (
         <Button
-          icon="pi pi-arrow-up" // Use PrimeReact icon
+          icon="pi pi-arrow-up"
           onClick={scrollToTop}
-          className="back-to-top-button" // Add custom class for styling
+          className="back-to-top-button" 
           style={{
             position: 'fixed',
             bottom: '30px',
