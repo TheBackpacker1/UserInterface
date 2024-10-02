@@ -7,7 +7,8 @@ import { Button } from 'primereact/button'; // Import Button from PrimeReact
 import { useEffect, useState } from 'react';
 import Businesses from './Businesses';
 import Guide from './Guide';
-
+import Learn from './Learn';
+import Footer from './Footer'
 const LandingPage = () => {
   const [showScroll, setShowScroll] = useState(false);
 
@@ -48,6 +49,10 @@ const LandingPage = () => {
      
       <div id="guide-section">
          <Guide /></div>
+
+         <div id="learn-section">
+         <Learn/></div>
+         <Footer /> 
 
       {showScroll && (
         <Button

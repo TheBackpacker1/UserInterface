@@ -29,7 +29,7 @@ const Businesses = () => {
       },
       {
         title: "Performance Tracking",
-        description: "Visualize your assets' past and current performance using our integrated charting tools.",
+        description: "Visualize your assets past and current performance using our integrated charting tools.",
         icon: "pi pi-chart-bar",
       },
 
