@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Divider } from 'primereact/divider';
