@@ -1,7 +1,7 @@
 .hero-section {
     background: linear-gradient(to right, #26A69A, #00BFFF); /* Gradient background */
     color: white; /* Text color */
-    padding: 160px 20px; /* Add padding */
+    padding: 177px 20px; /* Add padding */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
     text-align: center; /* Center align text */
     position: relative; /* For overlay positioning if needed */

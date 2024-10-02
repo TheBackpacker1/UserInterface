@@ -1,0 +1,46 @@
+.businesses-section { 
+padding: 40px;
+text-align: center  ;
+background: linear-gradient(to right, #f0f9ff, #faeafc);
+
+}
+
+.feature-card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.services-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #4a4a4a;
+}
+
+.feature-card { 
+border-radius: 15px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+padding: 20px;
+text-align: left;
+position: relative;
+transition: transform 0.2s ease;
+
+
+
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+  }
+  .feature-icon {
+    margin-bottom: 15px;
+  }
+  .feature-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #26A69A;
+    margin-bottom: 10px;
+  }
+  .feature-description {
+    font-size: 1rem;
+    color: #333;
+  }

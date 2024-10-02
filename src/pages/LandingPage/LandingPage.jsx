@@ -5,6 +5,7 @@ import 'primereact/resources/themes/lara-light-teal/theme.css';
 import MarketTrend from './MarketTrend';
 import { Button } from 'primereact/button'; // Import Button from PrimeReact
 import { useEffect, useState } from 'react';
+import Businesses from './Businesses';
 
 
 const LandingPage = () => {
@@ -42,6 +43,7 @@ const LandingPage = () => {
       <div id="market-trend-section">
         <MarketTrend />
       </div>
+      <Businesses />
       {showScroll && (
         <Button
           icon="pi pi-arrow-up" // Use PrimeReact icon
