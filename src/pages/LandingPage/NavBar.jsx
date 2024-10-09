@@ -5,7 +5,7 @@ import { Menubar } from 'primereact/menubar';
 import  './NavBar.css'
 import PropTypes from 'prop-types';
 
-const NavBar =() => {
+const NavBar =({setShowDialog,setIsSignUp,isAuthenticated, onLogout}) => {
 
   const [selectedLanguage, setSelectedLanguage] = useState('EN');
 
@@ -31,7 +31,7 @@ const NavBar =() => {
     { label: 'Learn', icon: 'pi pi-book', command: () => scrollToSection('learn-section') }
   ];
 
-  const end = (
+  const end = isAuthenticated ?(
     <div className=''> 
       <Dropdown  
       value={selectedLanguage}
@@ -55,10 +55,38 @@ const NavBar =() => {
            backgroundColor: '#26A69A',
 
            }}
-        onClick={() => console.log('Login clicked')}
+        onClick={onLogout}
       />
     </div>
-  );
+  ):(<div className=''>
+    <Dropdown
+      value={selectedLanguage}
+      options={languages}
+      onChange={handleLanguageChange}
+      style={{
+        border: 'none',
+        boxShadow: 'none',
+        padding: '0.25rem',
+        background: 'transparent',
+      }}
+      placeholder='Select a language'
+    />
+    <Button
+      label="Login"
+      icon="pi pi-sign-in"
+      className="p-button-text"
+      style={{
+        marginLeft: '1rem',
+        color: '#ffffff',
+        backgroundColor: '#26A69A',
+      }}
+      onClick={() => {
+        setShowDialog(true);
+        setIsSignUp(false);
+      }}
+    />
+  </div>
+);
 
 
   const scrollToSection = (sectionId) => {
@@ -84,5 +112,9 @@ NavBar.propTypes = {
   selectedTheme: PropTypes.string.isRequired,
   darkMode: PropTypes.bool.isRequired,
   handleThemeSwitch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired, 
+  onLogout: PropTypes.func.isRequired, 
+  setShowDialog: PropTypes.func.isRequired, 
+  setIsSignUp: PropTypes.func.isRequired,   
 };
 export default NavBar;

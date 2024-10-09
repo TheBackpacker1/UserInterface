@@ -32,6 +32,7 @@ const Layout = ({ children }) => {
   }
 
   const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
     navigate('/trendingMarket');
   };
 

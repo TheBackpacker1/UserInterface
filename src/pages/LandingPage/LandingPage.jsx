@@ -9,7 +9,11 @@ import Businesses from './Businesses';
 import Guide from './Guide';
 import Learn from './Learn';
 import Footer from './Footer'
+import AuthDialog from '../AuthDialog';
+
 const LandingPage = () => {
+  const [showDialog, setShowDialog] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
 
   const handleScroll = () => {
@@ -38,7 +42,9 @@ const LandingPage = () => {
 
     <div style={{ backgroundColor:'#ffffff', minHeight: '100vh',color:'#000000' }}>   
        <div id="hero-section">
-      <Navbar />
+      <Navbar setShowDialog={setShowDialog} setIsSignUp={setIsSignUp}/>
+      <AuthDialog showDialog={showDialog} setShowDialog={setShowDialog} isSignUp={isSignUp} setIsSignUp={setIsSignUp} />
+
         <HeroSection />
       </div>
       <div id="market-trend-section">

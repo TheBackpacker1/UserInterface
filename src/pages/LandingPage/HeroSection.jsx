@@ -8,6 +8,7 @@ import './HeroSection.css'
 const HeroSection = () => {
 
 const [showDialog , setShowDialog]=useState(false) 
+// eslint-disable-next-line no-unused-vars
 const [isAuthenticated, setIsAuthenticated]=useState(false)
 
 
@@ -35,6 +36,7 @@ const onLoginSuccess = () => {
           setShowDialog={setShowDialog}
           onLoginSuccess={onLoginSuccess}
           setIsAuthenticated={setIsAuthenticated}
+          isSingup={true}
         />
 
       </div>
