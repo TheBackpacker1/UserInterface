@@ -102,8 +102,8 @@ const NavBar =({setShowDialog,setIsSignUp,isAuthenticated, onLogout}) => {
     </h1>
   );
   return (
-    <Menubar model={navItems} start={start} end={end} 
-    className='custom-menubar  ' />
+    <Menubar model={navItems} start={start} end={end}    className='custom-menubar  ' />
+    
   );
 };
 

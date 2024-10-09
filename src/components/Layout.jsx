@@ -36,6 +36,11 @@ const Layout = ({ children }) => {
     navigate('/trendingMarket');
   };
 
+  const handleLogout = () => {
+    onLogout(); // Call the logout function from context
+    navigate('/'); // Redirect to the landing page
+  };
+
 
  useEffect(() => {
     const fetchUserData = async () => {
@@ -130,7 +135,7 @@ const Layout = ({ children }) => {
 
     {
       label: isAuthenticated ? (
-        <Link to='/' onClick={onLogout} style={{color: 'white', textDecoration: 'none'}}>Logout</Link>
+        <Link to='/' onClick={handleLogout} style={{color: 'white', textDecoration: 'none'}}>Logout</Link>
 
       ) : (<Link to='/authDialog' style={{ color: 'white', textDecoration: 'none' }} onClick={() => setShowDialog(true)}>
             LogIn
